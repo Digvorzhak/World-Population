@@ -1,0 +1,19 @@
+body {
+  background: #faefe6;
+  display: flex;
+  justify-content: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.continent-container {
+  display: flex;
+}
+
+.continent-container > div {
+  text-align: center;
+  width: 5rem;
+  height: 2rem;
+  background: #b4dce4;
+  margin-left: 2rem;
+  border-radius: 0.5rem;
+}

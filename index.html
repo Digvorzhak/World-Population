@@ -5,8 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>World Population</title>
+    <link rel="stylesheet" href="/normalize.css" />
     <link rel="stylesheet" href="/style.css" />
     <script defer src="/script.js"></script>
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+      <h1>World Population</h1>
+      <div class="continent-container">
+        <button class="africa continent">Africa</button>
+        <button class="americas continent">Americas</button>
+        <button class="asia continent">Asia</button>
+        <button class="europe continent">Europe</button>
+        <button class="oceania continent">Oceania</button>
+      </div>
+      <div>
+        <canvas id="myChart"></canvas>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </body>
 </html>
