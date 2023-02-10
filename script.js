@@ -11,14 +11,15 @@ const getContinentData = async () => {
   try {
     for (let i = 0; i < continents.length; i++) {
       continentsResponses[i] = await fetch(`https://restcountries.com/v3.1/region/${continents[i]}`);
-      if (!continentsResponses[i].ok) {
-        throw new Error(`API Error. ${continentsResponses[i]} is the source.`);
+      const cityResponses = await fetch(`https://countriesnow.space/api/v0.1/countries/population/cities`);
+      if (!continentsResponses[i].ok || !cityResponses.ok) {
+        throw new Error(`API Error. ${continentsResponses[i].ok} ${cityResponses.ok}`);
       }
       continentsData[i] = await continentsResponses[i].json();
+      cityData = await cityResponses.json();
 
       // console.log(continentsData[i]);
     }
-    console.log(continentsData);
 
     continentButtons.forEach((button) => {
       button.addEventListener("click", () => {
@@ -26,13 +27,9 @@ const getContinentData = async () => {
           chart.destroy();
         }
         for (let i = 0; i < continentsUpperCase.length; i++) {
-          console.log(button.innerHTML);
           if (button.innerHTML === continentsUpperCase[i]) {
-            console.log(button.innerHTML);
             const nameList = continentsData[i].map((country) => country.name.common);
             const popData = continentsData[i].map((country) => country.population);
-            console.log(nameList);
-            console.log(popData);
             chart = new Chart(ctx, {
               type: "line",
               data: {
@@ -59,8 +56,47 @@ const getContinentData = async () => {
             for (let i = 0; i < nameList.length; i++) {
               const newCountry = document.createElement("button");
               newCountry.innerHTML = nameList[i];
+              newCountry.setAttribute("class", "country");
               countryList.appendChild(newCountry);
             }
+            const countryButtons = document.querySelectorAll(".country");
+            countryButtons.forEach((button) => {
+              button.addEventListener("click", () => {
+                const cityList = [];
+                const cityPop = [];
+                for (let i = 0; i < cityData.data.length; i++) {
+                  if (button.innerHTML === cityData.data[i].country) {
+                    if (chart) {
+                      chart.destroy();
+                    }
+                    cityList.push(cityData.data[i].city);
+                    cityPop.push(cityData.data[i].populationCounts[0].value);
+                    chart = new Chart(ctx, {
+                      type: "line",
+                      data: {
+                        labels: cityList,
+                        datasets: [
+                          {
+                            label: "Population",
+                            data: cityPop,
+                            borderWidth: 1,
+                          },
+                        ],
+                      },
+                      options: {
+                        scales: {
+                          y: {
+                            beginAtZero: true,
+                          },
+                        },
+                      },
+                    });
+                  }
+                }
+                console.log(cityList);
+                console.log(cityPop);
+              });
+            });
           }
         }
       });
@@ -80,7 +116,8 @@ const getCitiesData = async () => {
       throw new Error(`PROBLEM.`);
     }
     const resData = await res.json();
-    // console.log(resData);
+    console.log(resData);
+    console.log(resData.data[547].country);
   } catch (error) {
     console.error(error);
   }
