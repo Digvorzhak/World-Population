@@ -9,7 +9,27 @@ body {
   display: flex;
 }
 
-.continent-container > div {
+.continent-container > button {
+  text-align: center;
+  width: 5rem;
+  height: 2rem;
+  background: #b4dce4;
+  margin-left: 2rem;
+  border-radius: 0.5rem;
+}
+
+.chart-container {
+  width: 70rem;
+  height: 30rem;
+}
+
+.country-container {
+  display: flex;
+  width: 70rem;
+  height: 15rem;
+  flex-wrap: wrap;
+}
+.country-container > button {
   text-align: center;
   width: 5rem;
   height: 2rem;
