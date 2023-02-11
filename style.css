@@ -17,7 +17,7 @@ body {
 }
 
 .container {
-  width: 70%;
+  width: 75%;
   height: 100%;
 }
 
@@ -43,7 +43,7 @@ body {
 }
 
 .chart-container {
-  width: 100%;
+  width: 55%;
   /* height: 40%; */
 }
 

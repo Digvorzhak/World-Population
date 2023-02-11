@@ -18,7 +18,6 @@ const getContinentData = async () => {
       continentsData[i] = await continentsResponses[i].json();
       cityData = await cityResponses.json();
     }
-    console.log(continentsData);
 
     continentButtons.forEach((button) => {
       button.addEventListener("click", () => {
@@ -31,7 +30,7 @@ const getContinentData = async () => {
             // const officialNameList = continentsData[i].map((country) => country.name.official);
             const popData = continentsData[i].map((country) => country.population);
             chart = new Chart(ctx, {
-              type: "line",
+              type: "doughnut",
               data: {
                 labels: commonNameList,
                 datasets: [
@@ -73,7 +72,7 @@ const getContinentData = async () => {
                     cityList.push(cityData.data[i].city);
                     cityPop.push(cityData.data[i].populationCounts[0].value);
                     chart = new Chart(ctx, {
-                      type: "line",
+                      type: "doughnut",
                       data: {
                         labels: cityList,
                         datasets: [
@@ -95,8 +94,6 @@ const getContinentData = async () => {
                     });
                   }
                 }
-                console.log(cityList);
-                console.log(cityPop);
               });
             });
           }
@@ -106,50 +103,5 @@ const getContinentData = async () => {
   } catch (error) {
     console.error(error);
   }
-  return continentsData;
 };
-
 getContinentData();
-
-// const getCitiesData = async () => {
-//   try {
-//     const res = await fetch(`https://countriesnow.space/api/v0.1/countries/population/cities`);
-//     if (!res.ok) {
-//       throw new Error(`PROBLEM.`);
-//     }
-//     const resData = await res.json();
-//     console.log(resData);
-//     console.log(resData.data.map((obj) => obj.country.includes("Morocco"))).filter((boolean) => boolean === true);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
-// getCitiesData();
-
-// continentButtons.forEach((button) => {
-//   button.addEventListener("click", () => {
-//     if (button.innerHTML === "Africa") {
-// new Chart(ctx, {
-//   type: "line",
-//   data: {
-//     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-//     datasets: [
-//       {
-//         label: "# of Votes",
-//         data: [12, 19, 3, 5, 2, 3],
-//         borderWidth: 1,
-//       },
-//     ],
-//   },
-//   options: {
-//     scales: {
-//       y: {
-//         beginAtZero: true,
-//       },
-//     },
-//   },
-// });
-//     }
-//   });
-// });
