@@ -10,16 +10,15 @@ const getContinentData = async () => {
   const continentsData = [];
   try {
     for (let i = 0; i < continents.length; i++) {
-      continentsResponses[i] = await fetch(`https://restcountries.com/v3.1/region/${continents[i]}`);
+      continentsResponses[i] = await fetch(`https://restcountries.com/v2/region/${continents[i]}`);
       const cityResponses = await fetch(`https://countriesnow.space/api/v0.1/countries/population/cities`);
       if (!continentsResponses[i].ok || !cityResponses.ok) {
         throw new Error(`API Error. ${continentsResponses[i].ok} ${cityResponses.ok}`);
       }
       continentsData[i] = await continentsResponses[i].json();
       cityData = await cityResponses.json();
-
-      // console.log(continentsData[i]);
     }
+    console.log(continentsData);
 
     continentButtons.forEach((button) => {
       button.addEventListener("click", () => {
@@ -28,12 +27,13 @@ const getContinentData = async () => {
         }
         for (let i = 0; i < continentsUpperCase.length; i++) {
           if (button.innerHTML === continentsUpperCase[i]) {
-            const nameList = continentsData[i].map((country) => country.name.common);
+            const commonNameList = continentsData[i].map((country) => country.name);
+            // const officialNameList = continentsData[i].map((country) => country.name.official);
             const popData = continentsData[i].map((country) => country.population);
             chart = new Chart(ctx, {
               type: "line",
               data: {
-                labels: nameList,
+                labels: commonNameList,
                 datasets: [
                   {
                     label: "Population",
@@ -43,6 +43,7 @@ const getContinentData = async () => {
                 ],
               },
               options: {
+                responsive: true,
                 scales: {
                   y: {
                     beginAtZero: true,
@@ -53,9 +54,9 @@ const getContinentData = async () => {
             while (countryList.firstChild) {
               countryList.removeChild(countryList.firstChild);
             }
-            for (let i = 0; i < nameList.length; i++) {
+            for (let i = 0; i < commonNameList.length; i++) {
               const newCountry = document.createElement("button");
-              newCountry.innerHTML = nameList[i];
+              newCountry.innerHTML = commonNameList[i];
               newCountry.setAttribute("class", "country");
               countryList.appendChild(newCountry);
             }
@@ -84,6 +85,7 @@ const getContinentData = async () => {
                         ],
                       },
                       options: {
+                        responsive: true,
                         scales: {
                           y: {
                             beginAtZero: true,
@@ -109,21 +111,21 @@ const getContinentData = async () => {
 
 getContinentData();
 
-const getCitiesData = async () => {
-  try {
-    const res = await fetch(`https://countriesnow.space/api/v0.1/countries/population/cities`);
-    if (!res.ok) {
-      throw new Error(`PROBLEM.`);
-    }
-    const resData = await res.json();
-    console.log(resData);
-    console.log(resData.data[547].country);
-  } catch (error) {
-    console.error(error);
-  }
-};
+// const getCitiesData = async () => {
+//   try {
+//     const res = await fetch(`https://countriesnow.space/api/v0.1/countries/population/cities`);
+//     if (!res.ok) {
+//       throw new Error(`PROBLEM.`);
+//     }
+//     const resData = await res.json();
+//     console.log(resData);
+//     console.log(resData.data.map((obj) => obj.country.includes("Morocco"))).filter((boolean) => boolean === true);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
-getCitiesData();
+// getCitiesData();
 
 // continentButtons.forEach((button) => {
 //   button.addEventListener("click", () => {

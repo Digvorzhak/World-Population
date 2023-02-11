@@ -1,39 +1,69 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  /* font-size: 62.5%; */
+}
+
 body {
+  width: 100vw;
+  height: 100vh;
   background: #faefe6;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  width: 70%;
+  height: 100%;
 }
 
 .continent-container {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .continent-container > button {
   text-align: center;
   width: 5rem;
   height: 2rem;
-  background: #b4dce4;
+  background: #2a2f30;
+  color: #fff;
   margin-left: 2rem;
-  border-radius: 0.5rem;
+  border-radius: 0.5rem #2a2f30;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.continent-container > button:hover {
+  background: #ffffff;
+  color: #2a2f30;
 }
 
 .chart-container {
-  width: 70rem;
-  height: 30rem;
+  width: 100%;
+  /* height: 40%; */
 }
 
 .country-container {
   display: flex;
-  width: 70rem;
-  height: 15rem;
+  width: 100%;
   flex-wrap: wrap;
 }
 .country-container > button {
   text-align: center;
-  width: 5rem;
-  height: 2rem;
-  background: #b4dce4;
-  margin-left: 2rem;
-  border-radius: 0.5rem;
+  width: 30%;
+  height: 10%;
+  background: #2a2f30;
+  color: #fff;
+  /* margin-left: 2rem; */
+  border-radius: 0.5rem #2a2f30;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.country-container > button:hover {
+  background: #ffffff;
+  color: #2a2f30;
 }
